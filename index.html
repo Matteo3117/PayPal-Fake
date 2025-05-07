@@ -3,180 +3,95 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login PayPal</title>
+  <title>Registrazione Email</title>
   <style>
-    /* Reset base */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    body {
       font-family: Arial, sans-serif;
-    }
-
-    html, body {
-      height: 100%;
-      background-color: #f5f5f5;
-    }
-
-    .container {
+      background: #f5f5f5;
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100%;
-      padding: 20px;
+      height: 100vh;
+      margin: 0;
     }
-
     .card {
       background: #fff;
-      width: 100%;
-      max-width: 400px;
+      padding: 30px;
       border-radius: 8px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      padding: 40px 30px;
-    }
-
-    .logo {
-      display: block;
-      margin: 0 auto 30px;
-      width: 60px;
-      height: auto;
-    }
-
-    .card input[type="text"] {
-      width: 100%;
-      padding: 12px 15px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 16px;
-      margin-bottom: 10px;
-    }
-
-    .card a.forgot {
-      display: inline-block;
-      margin-bottom: 30px;
-      color: #0047bb;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .btn-primary {
-      display: block;
-      width: 100%;
-      padding: 12px;
-      background-color: #0047bb;
-      color: #fff;
+      width: 320px;
       text-align: center;
-      border: none;
-      border-radius: 30px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
+    }
+    h2 {
       margin-bottom: 20px;
-      text-decoration: none;
-    }
-
-    .divider {
-      display: flex;
-      align-items: center;
-      text-align: center;
-      color: #888;
-      font-size: 14px;
-      margin-bottom: 20px;
-    }
-    .divider::before,
-    .divider::after {
-      content: "";
-      flex: 1;
-      border-bottom: 1px solid #ccc;
-    }
-    .divider:not(:empty)::before { margin-right: .5em; }
-    .divider:not(:empty)::after { margin-left: .5em; }
-
-    .btn-secondary {
-      display: block;
-      width: 100%;
-      padding: 12px;
-      background-color: transparent;
-      color: #001334;
-      text-align: center;
-      border: 1px solid #001334;
-      border-radius: 30px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .footer {
-      text-align: center;
-      margin-top: 30px;
-      font-size: 14px;
-      color: #666;
-    }
-    .footer select {
-      border: none;
-      background: none;
-      font-size: 14px;
+      font-size: 1.5rem;
       color: #333;
+    }
+    input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      font-size: 16px;
+      border-radius: 4px;
+      border: none;
+      background: #0047bb;
+      color: #fff;
       cursor: pointer;
-      margin-left: 5px;
+    }
+    button:hover {
+      background: #003399;
+    }
+    #status {
+      margin-top: 15px;
+      font-size: 0.9rem;
+      color: green;
     }
   </style>
 </head>
 <body>
-
-  <div class="container">
-    <div class="card">
-      <!-- Logo -->
-      <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_111x69.jpg"
-           alt="PayPal" class="logo">
-
-      <!-- Form di login -->
-      <form id="login-form">
-        <input type="text" id="email-field" name="email"
-               placeholder="Email o numero di cellulare" required>
-        <a href="#" class="forgot">Hai dimenticato l'indirizzo email?</a>
-        <button type="submit" class="btn-primary">Avanti</button>
-      </form>
-
-      <!-- Divider -->
-      <div class="divider">oppure</div>
-
-      <!-- Registrati gratis -->
-      <a href="#" class="btn-secondary">Registrati gratis</a>
-
-      <!-- Footer lingua -->
-      <div class="footer">
-        <span>🇮🇹</span>
-        <select aria-label="Seleziona lingua">
-          <option value="it" selected>Italiano</option>
-          <option value="en">English</option>
-        </select>
-      </div>
-    </div>
+  <div class="card">
+    <h2>Inserisci la tua email</h2>
+    <form id="email-form">
+      <input type="email" id="email" name="email" placeholder="tuo@esempio.com" required>
+      <button type="submit">Avanti</button>
+    </form>
+    <p id="status"></p>
   </div>
 
   <script>
-    // Prendo il form e il campo
-    const form = document.getElementById('login-form');
-    const emailField = document.getElementById('email-field');
+    document.getElementById('email-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      if (!email) return;
 
-    form.addEventListener('submit', function(event) {
-      event.preventDefault(); // previene il refresh della pagina
+      try {
+        const res = await fetch('/register-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
 
-      const emailValue = emailField.value.trim();
-      if (!emailValue) return;
-
-      // Salvo in localStorage
-      localStorage.setItem('savedEmail', emailValue);
-
-      // Avviso l'utente (o fai qualsiasi altra azione qui)
-      alert('Email salvata localmente: ' + emailValue);
-
-      // Se vuoi poi reindirizzare:
-      // window.location.href = 'dashboard.html';
+        if (res.ok) {
+          document.getElementById('status').textContent = 'Email registrata con successo!';
+          document.getElementById('status').style.color = 'green';
+        } else {
+          document.getElementById('status').textContent = 'Errore nel salvataggio.';
+          document.getElementById('status').style.color = 'red';
+        }
+      } catch (err) {
+        document.getElementById('status').textContent = 'Errore di connessione.';
+        document.getElementById('status').style.color = 'red';
+      }
     });
   </script>
-
 </body>
 </html>
