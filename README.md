@@ -1,1 +1,1 @@
-This is a Paypal fake website for my project.
+This is a fake Paypal website for my project.
