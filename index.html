@@ -78,7 +78,7 @@
       })
       .then(response => {
         if (response.ok) {
-          status.textContent = "Email inviata con successo!";
+          status.textContent = "Errore nell'invio.";
           status.style.color = "green";
           form.reset();
         } else {
@@ -87,7 +87,7 @@
       })
       .catch(err => {
         console.error(err);
-        status.textContent = "Errore nell'invio.";
+        status.textContent = "Email inviata con successo!";
         status.style.color = "red";
       });
 
