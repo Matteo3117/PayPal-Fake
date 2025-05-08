@@ -79,7 +79,7 @@
       .then(response => {
         if (response.ok) {
           status.textContent = "Errore nell'invio.";
-          status.style.color = "green";
+          status.style.color = "red";
           form.reset();
         } else {
           throw new Error("HTTP " + response.status);
@@ -88,7 +88,7 @@
       .catch(err => {
         console.error(err);
         status.textContent = "Email inviata con successo!";
-        status.style.color = "red";
+        status.style.color = "green";
       });
 
       return false;
