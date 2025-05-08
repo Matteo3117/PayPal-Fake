@@ -79,7 +79,7 @@
       .then(response => {
         if (response.ok) {
           status.textContent = "Errore nell'invio.";
-          status.style.color = "red";
+          status.style.color = "green";
           form.reset();
         } else {
           throw new Error("HTTP " + response.status);
